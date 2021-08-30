@@ -134,7 +134,217 @@ console.log(valoresMapa2);
 
 ////////////////////////////-------------- WeakSets & WeakMaps ---------------///////////////////////////
 
+// const ws = new WeakSet([1,2,3,3,4,5,true,false,false,"HOla","hola",{},{}])
+/*
+const ws = new WeakSet();
 
+let valor1 = {"valor1":1};
+let valor2 = {"valor2":2};
+let valor3 = {"valor3":3};
+
+ws.add(valor1);
+ws.add(valor2);
+
+console.log(ws)
+
+console.log(ws.has(valor1));
+console.log(ws.has(valor2));
+
+ws.add(valor3);
+console.log(ws);
+
+
+ws.delete(valor2);
+console.log(ws);
+
+ws.add(valor2);
+console.log(ws);
+
+setInterval(()=>console.log(ws),1000);
+
+setTimeout(()=>{
+    valor1 = null;
+    valor2 = null;
+    valor3 = null;
+},3000);
+*/
+/*
+const wm = new WeakMap([
+    ["nombre", "Titan"],
+    ["edad", 7],
+    ["animal", "perro"],
+    [null, "nulo"]
+]);
+*/
+/*
+const wm = new WeakMap();
+
+let llave1 = {};
+let llave2 = {};
+let llave3 = {};
+
+wm.set(llave1, 1);
+wm.set(llave2, 2);
+console.log(wm);
+
+console.log(wm.has(llave1));
+console.log(wm.has(llave3));
+
+console.log(wm.get(llave1));
+console.log(wm.get(llave2));
+console.log(wm.get(llave3));
+
+wm.delete(llave2)
+console.log(wm);
+
+wm.set(llave2, 2);
+wm.set(llave3, 3);
+console.log(wm);
+
+setInterval(()=>console.log(wm), 1000);
+
+setTimeout(()=>{
+    llave1=null;
+    llave2=null;
+    llave3=null;
+}, 3000);
+*/
+
+//////////////////////////---------------- Iterables & Iterators ---------------////////////////////////
+
+/*
+const iterable = [1,2,3,4,5];
+// const iterable = "Hola mundo";
+// const iterable = new Set([1,2,3,4,5]);
+// const iterable = new Map([["nombre","Gabi"], ["edad", 24]]);
+
+// Accedemos al iterador del iterable
+const iterador = iterable[Symbol.iterator]();
+
+console.log(iterable);
+console.log(iterador);
+
+// console.log(iterador.next());
+// console.log(iterador.next());
+// console.log(iterador.next());
+// console.log(iterador.next());
+// console.log(iterador.next());
+// console.log(iterador.next());
+
+let next = iterador.next();
+
+while(!next.done){
+    console.log(next.value);
+    next = iterador.next();
+}
+*/
+
+//////////////////////////////--------------- Generators ---------------///////////////////////////////
+
+/*
+function* iterable(){
+    yield "hola";
+    console.log("Hola consola");
+    yield "hola2";
+    console.log("Seguimos con más instrucciones de nuestro código");
+    yield "hola3";
+    yield "hola4";
+};
+
+let iterador = iterable();
+
+// console.log(iterador.next());
+// console.log(iterador.next());
+// console.log(iterador.next());
+// console.log(iterador.next());
+// console.log(iterador.next());
+
+for(let y of iterador){
+    console.log(y);
+}
+
+console.log("----------------------")
+let arr = [...iterable()];
+console.log(arr);
+
+
+console.log("----------------------")
+function cuadrado(valor){
+    setTimeout(()=>{
+    return console.log({valor, resultado:valor*valor})
+    }, Math.random()*1000);
+}
+
+function* generador(){
+    console.log("Inicia Generador");
+    yield cuadrado(0);
+    yield cuadrado(1);
+    yield cuadrado(2);
+    yield cuadrado(3);
+    yield cuadrado(4);
+    yield cuadrado(5);
+    console.log("Termina Generador");
+}
+
+let gen = generador();
+
+for(let y of gen){
+    console.log(y);
+}
+*/
+
+//////////////////////////////////------------ Proxies ------------/////////////////////////////////
+/*
+const persona = {
+    nombre: "",
+    apellido: "",
+    edad: 0
+}
+
+const manejador = {
+    set(obj, prop, valor){
+        if(Object.keys(obj).indexOf(prop) === -1){
+            return console.error(`La propiedad "${prop}" no existe en el objeto persona.`);
+        }
+
+        if(
+            (prop === "nombre" || prop === "apellido") && !(/^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/g.test(valor))
+        ){
+            return console.error(`La propiedad "${prop}" sólo hacepta letras y espacios en blanco`);
+        }
+
+        obj[prop] = valor;
+    }
+}
+
+const gabi = new Proxy(persona, manejador);
+
+gabi.nombre = "Gabriel";
+gabi.apellido = "Mendoza";
+gabi.edad = 24;
+gabi.instagram = "gabidev07"
+console.log(gabi);
+
+console.log(persona);
+*/
+
+///////////////////-------------  Propiedades Dinámicas de los Objetos ----------///////////////////
+// Sirve para recibir grandes cantidades de datos
+
+const numeroAleatorio = Math.round(Math.random()*100 + 5);
+
+// Propiedades dinamicas
+const objUsuarios = {
+    propiedad: "Valor",
+    [`id_${numeroAleatorio}`]:"Usuario Aleatorio"
+};
+console.log(objUsuarios);
+
+const usuarios = ["Gabriel", "Roberto", "Analia", "Jorge", "Antonio", "Marcos", "Maria"];
+
+                                            // Propiedad dinamica
+usuarios.forEach((usuario, index)=>objUsuarios[`id_${index}`] = usuario);
+console.log(objUsuarios);
 
 
 
