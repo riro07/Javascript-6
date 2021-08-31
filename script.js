@@ -330,7 +330,7 @@ console.log(persona);
 
 ///////////////////-------------  Propiedades Dinámicas de los Objetos ----------///////////////////
 // Sirve para recibir grandes cantidades de datos
-
+/*
 const numeroAleatorio = Math.round(Math.random()*100 + 5);
 
 // Propiedades dinamicas
@@ -345,7 +345,67 @@ const usuarios = ["Gabriel", "Roberto", "Analia", "Jorge", "Antonio", "Marcos", 
                                             // Propiedad dinamica
 usuarios.forEach((usuario, index)=>objUsuarios[`id_${index}`] = usuario);
 console.log(objUsuarios);
+*/
+
+////////////////////////////////--------------- this ---------------//////////////////////////////////
+
+console.log(this);
+console.log(window);
+console.log(this === window);
+
+this.nombre = "Contexto Global";
+console.log(this.nombre);
+console.log(window.nombre);
+console.log(nombre);
+
+function imprimir(){
+    console.log(this.nombre);
+}
+imprimir();
+
+const obj = {
+    nombre: "Contexto Objeto",
+    imprimir: function (){
+        console.log(this.nombre);
+    }
+};
+obj.imprimir();
+
+// Aca se puede ver como imprime la funcion declarada en el ambito global en el obj2. Este utiliza 
+// la funcion pero toma el ambito(this) del obj2. 
+const obj2 = {
+    nombre: "Contexto Objeto 2",
+    imprimir
+};
+obj2.imprimir();
+
+// Aca se puede apreciar como el this es referenciado al contexto global al usar una arrow function
+const obj3 = {
+    nombre: "Contexto Objeto 3",
+    imprimir: () => {
+        console.log(this.nombre);
+    }
+};
+obj3.imprimir();
 
 
+// Caso 1: Da como return el this de la funcion prototipica Persona
+// function Persona(nombre){
+//     this.nombre = nombre;
+// 
+//     return console.log(this.nombre);
+// }
+// let gabi = new Persona("Gabriel");
 
+// Caso 2: Da como return el this del contexto global
+function Persona(nombre){
+    this.nombre = nombre;
 
+    // return console.log(this.nombre);
+    return function(){
+        console.log(this.nombre);
+    };
+};
+
+let gabi = new Persona("Gabriel");
+gabi();
