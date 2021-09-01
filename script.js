@@ -348,7 +348,7 @@ console.log(objUsuarios);
 */
 
 ////////////////////////////////--------------- this ---------------//////////////////////////////////
-
+/*
 console.log(this);
 console.log(window);
 console.log(this === window);
@@ -379,7 +379,7 @@ const obj2 = {
 };
 obj2.imprimir();
 
-// Aca se puede apreciar como el this es referenciado al contexto global al usar una arrow function
+// Aca se puede apreciar como el this es referenciado al contexto global al usar una arrow function.
 const obj3 = {
     nombre: "Contexto Objeto 3",
     imprimir: () => {
@@ -389,23 +389,126 @@ const obj3 = {
 obj3.imprimir();
 
 
-// Caso 1: Da como return el this de la funcion prototipica Persona
+// Caso 1: Da como return el this de la funcion prototipica Persona.
 // function Persona(nombre){
 //     this.nombre = nombre;
 // 
 //     return console.log(this.nombre);
 // }
 // let gabi = new Persona("Gabriel");
+// console.log(gabi);
 
-// Caso 2: Da como return el this del contexto global
+// Caso 2: Da como return el this del contexto global.
+// Se puede ver como el this de la funcion prototipica se pierde ante el return de funcion.
+// function Persona(nombre){
+//     this.nombre = nombre;
+// 
+//     // return console.log(this.nombre);
+//     return function(){
+//         console.log(this.nombre);
+//     };
+// };
+// 
+// let gabi = new Persona("Gabriel");
+// console.log(gabi);
+// gabi();
+
+// Caso 3
+// Aca se puede apreciar como la arrow function toma el ambito anterior(this).
+// function Persona(nombre){
+//     this.nombre = nombre;
+// 
+//     // return console.log(this.nombre);
+//     // return function(){
+//     //     console.log(this.nombre);
+//     // };
+// 
+//     return () => console.log(this.nombre);
+// };
+//
+// let gabi = new Persona("Gabriel");
+// console.log(gabi);
+// gabi();
+
+
+// Caso 4
+// Aca se puede ver como se intenta lograr el resultado anterior pero usando un funcion declarada
 function Persona(nombre){
-    this.nombre = nombre;
+    const that = this
+    // this.nombre = nombre;
+    that.nombre = nombre;
 
     // return console.log(this.nombre);
     return function(){
-        console.log(this.nombre);
+        console.log(that.nombre);
     };
+
+    // return () => console.log(this.nombre);
 };
 
 let gabi = new Persona("Gabriel");
+console.log(gabi);
 gabi();
+*/
+
+/////////////////////////------------------- call, apply, bind -------------------////////////////////////
+/*
+console.log(this);
+this.lugar = "Contexto Global";
+
+function saludar(saludo, aQuien){
+    console.log(`${saludo} ${aQuien} desde el ${this.lugar}`);
+};
+
+saludar("Hola", "Papi");
+
+const obj = {
+    lugar: "Contexto Objeto"
+};
+
+saludar.call(obj, "Hola call", "Papi call");
+saludar.call(null, "Hola call", "Papi call");
+saludar.call(this, "Hola call", "Papi call");
+
+saludar.apply(obj, ["Adios Apply", "Pade Apply"]);
+saludar.apply(null, ["Adios Apply", "Pade Apply"]);
+saludar.apply(this, ["Adios Apply", "Pade Apply"]);
+
+const persona = {
+    nombre: "Gabi",
+    saludar: function (){
+        console.log(`Hola ${this.nombre}`);
+    }
+};
+persona.saludar();
+
+// Esto retorna "Hola undefined" porque en este ambito de "otraPersona" no existe la propiedad 
+// "nombre" que tiene "persona". 
+// const otraPersona = {
+//     saludar: persona.saludar
+// };
+// 
+// otraPersona.saludar()
+
+// Esto retorna "Hola Gabi". El metodo "bind" lo hace posible al traerse las propiedades de el 
+// objeto persona.
+// const otraPersona = {
+//     saludar: persona.saludar.bind(persona)
+// };
+// otraPersona.saludar()
+
+// Aca se puede evidenciar que al pedir el ambito "this" del objeto "persona" creyendo que este lo va
+// a dar se demuestra que no lo da, sino que en bind lo que en realidad se esta pidiendo es simplemente
+// "this". Al colocar "persona" se da el ambito de la misma, en "this" la global. Ahí solo esta piediendo
+// la función "saludar" de "persona" y se le esta dando el ambito de "this".
+this.nombre = "Window";
+const otraPersona = {
+    saludar: persona.saludar.bind(this)
+};
+
+otraPersona.saludar()
+*/
+
+
+
+
