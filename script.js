@@ -1,7 +1,7 @@
 //////////////////////////////////------------ Symbols -------------////////////////////////////////////////
 
 // Dato Primitivo
-/*
+
 let id = Symbol("id");
 let id2 = Symbol("id2");
 
@@ -36,7 +36,40 @@ for (let propiedad in persona){
 }
 
 console.log(Object.getOwnPropertySymbols(persona));
-*/
+
+console.log("----------- Ejercicios ------------");
+
+const INDECIFRABLE = Symbol("Symbol");
+const FUNCIONSECRETA = Symbol("Función symbol");
+
+const cajaDeSecretos = {
+    nombre: "Hola, me llamo Gabriel!",
+    [INDECIFRABLE]:"Acá guardo datos que no pueden removerse, por eso no puedo decírte como se llama verdaderamente mi variable..",
+    [FUNCIONSECRETA]: function () {
+        console.log(`Ejecutaste la función symbol y este es el valor de INDECIFRABLE: ${cajaDeSecretos[INDECIFRABLE]}`)
+    }
+}
+console.log(cajaDeSecretos);
+console.log(cajaDeSecretos[FUNCIONSECRETA]());
+console.log(INDECIFRABLE);
+
+cajaDeSecretos.INDECIFRABLE = "Descubriste el valor de la variable que se encuentra dentro del objeto";
+
+// Nuevo valor del symbol.
+console.log(cajaDeSecretos.INDECIFRABLE);
+
+// Valor dentro del objeto cajaDeSecretos.
+console.log(cajaDeSecretos[INDECIFRABLE]);
+
+for(let prop in cajaDeSecretos){
+    console.log(prop);
+    console.log(cajaDeSecretos[prop]);
+};
+
+cajaDeSecretos[FUNCIONSECRETA]()
+
+console.log(Object.getOwnPropertySymbols(caja));
+
 
 //////////////////////////////////////----------- Sets ------------/////////////////////////////////////////
 // Guarda en un array especial datos, y si se repiten los elimina, los ignora(parece array, pero no es).
