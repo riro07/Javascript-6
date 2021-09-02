@@ -1,7 +1,7 @@
 //////////////////////////////////------------ Symbols -------------////////////////////////////////////////
-
+// Su intención es ocultar datos impresindibles.
 // Dato Primitivo
-
+/*
 let id = Symbol("id");
 let id2 = Symbol("id2");
 
@@ -66,12 +66,13 @@ for(let prop in cajaDeSecretos){
     console.log(cajaDeSecretos[prop]);
 };
 
+console.log(Object.getOwnPropertySymbols(cajaDeSecretos));
 cajaDeSecretos[FUNCIONSECRETA]()
 
-console.log(Object.getOwnPropertySymbols(caja));
-
+*/
 
 //////////////////////////////////////----------- Sets ------------/////////////////////////////////////////
+// Nuevo tipo de array mejorado.
 // Guarda en un array especial datos, y si se repiten los elimina, los ignora(parece array, pero no es).
 // Valor complejo
 
@@ -82,6 +83,8 @@ console.log(set);
 console.log(set.size);
 
 const set2 = new Set();
+console.log(set2);
+
 set2.add(1);
 set2.add(2);
 set2.add(3);
@@ -105,7 +108,6 @@ set2.forEach(item=>console.log(item));
 console.log(set[0]);
 
 // Convirtiendo el set a un arreglo
-
 let newSet = Array.from(set);
 console.log(newSet[0]);
 console.log(newSet[7]);
@@ -119,9 +121,40 @@ console.log(set.has("HOla"))
 
 set2.clear();
 console.log(set2)
-*/
+
+console.log("------------ Ejercicios ------------");
+
+const GENEROSPELICULAS = new Set(["Accion", "Aventura", "Comedia", "Romanticos", "Ciencia Ficcion"]);
+console.log(GENEROSPELICULAS);
+GENEROSPELICULAS.forEach(value=>console.log(`${value}`));
+
+const CAJAGENEROS = new Set();
+CAJAGENEROS.add("Accion");
+CAJAGENEROS.add("Aventura");
+CAJAGENEROS.add("Comedia");
+CAJAGENEROS.add("Romanticos");
+CAJAGENEROS.add("Ciencia Ficcion");
+CAJAGENEROS.delete("Accion");
+
+// Para acceder a un sólo valor hay que pasarlo primero a un array.
+const NEWCAJAGENEROS = Array.from(CAJAGENEROS);
+console.log(NEWCAJAGENEROS[3]);
+
+for(item of CAJAGENEROS){
+    console.log(item)
+};
+
+CAJAGENEROS.delete("Romanticos");
+console.log(CAJAGENEROS);
+
+console.log(CAJAGENEROS.has("Ciencia Ficcion"));
+
+CAJAGENEROS.clear();
+console.log(CAJAGENEROS);
+*/  
+
 ////////////////////////////////////////--------- Maps ----------///////////////////////////////////////
-// parece un objeto, pero no lo es.
+// Nuevo tipo de objeto. Tiene otros propositos.
 // valor complejo
 
 /*
@@ -163,9 +196,57 @@ const valoresMapa2 = [...mapa2.values()];
 
 console.log(llavesMapa2);
 console.log(valoresMapa2);
+
+console.log("------------- Ejercicios --------------")
+
+const persona = new Map();
+persona.set("nombre", "Gabriel Leonardo");
+persona.set("apellido", "Mendoza");
+persona.set("edad", 24);
+
+console.log(persona);
+console.log(persona.size);
+
+console.log(persona.has("nombre"));
+console.log(persona.get("nombre"));
+
+// Como el objeto ya cuenta con este valor no lo vuelve a agregar.
+persona.set("edad", 24);
+console.log(persona);
+
+persona.set("[]", "[]");
+persona.set("{}", "{}");
+persona.set(32, 32);
+persona.set(false, "falso");
+
+console.log(persona);
+
+for(let [key, value] of persona){
+    console.log(`${key}: ${value}`)
+};
+
+const animal = new Map([
+    ["nombre", "Paco"],
+    ["edad", 4],
+    ["genero", "Macho"],
+    ["come", true]
+]);
+
+console.log(animal);
+
+animal.set("cantidad", "concierto");
+
+// Se pueden pasar los valores "key" y "Value" de "animal" 
+
+const llavesAnimal = [...animal.keys()];
+const valoresAnimal =[...animal.values()];
+
+console.log(llavesAnimal);
+console.log(valoresAnimal);
 */
 
 ////////////////////////////-------------- WeakSets & WeakMaps ---------------///////////////////////////
+
 
 // const ws = new WeakSet([1,2,3,3,4,5,true,false,false,"HOla","hola",{},{}])
 /*
@@ -542,6 +623,39 @@ const otraPersona = {
 otraPersona.saludar()
 */
 
+////////////////////////////////----------------- JSON ---------------////////////////////////////////  
 
+const json = {
+    cadena: "Gabi",
+    numero: 24,
+    booleano: true,
+    arreglo:["correr", "programar", "cocinar"],
+    objeto: {
+        facebook: "GabiLeo",
+        emai: "gabrileo@hormail.com"
+    },
+    nulo: null
+}
 
+console.log(json);
 
+// Pasa de cadena de texto a valor real
+console.log(JSON);
+console.log(JSON.parse("{}"));
+console.log(JSON.parse("[1,2,3]"));
+console.log(JSON.parse("false"));
+console.log(JSON.parse("null"));
+// console.log(JSON.parse("'Hola mundo'"));
+// console.log(JSON.parse("undefined"));
+
+// Pasa de valor real a cadena de texto
+console.log(JSON.stringify({}));
+console.log(JSON.stringify([1,2,3]));
+console.log(JSON.stringify(false));
+console.log(JSON.stringify(null));
+// console.log(JSON.parse("Hola mundo"));
+// console.log(JSON.parse("undefined"));
+console.log(JSON.stringify({x: 2, y: 3}));
+
+console.log(JSON.stringify(json));
+console.log(JSON.parse('{"cadena": "Gabi","numero": "24","booleano": "true","arreglo":["correr", "programar", "cocinar"],"objeto": {"facebook": "GabiLeo","emai": "gabrileo@hormail.com"},"nulo": null}'));

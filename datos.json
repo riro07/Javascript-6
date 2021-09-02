@@ -1,0 +1,11 @@
+{
+    "cadena": "Gabi",
+    "numero": "24",
+    "booleano": "true",
+    "arreglo":["correr", "programar", "cocinar"],
+    "objeto": {
+        "facebook": "GabiLeo",
+        "emai": "gabrileo@hormail.com"
+    },
+    "nulo": null
+}
